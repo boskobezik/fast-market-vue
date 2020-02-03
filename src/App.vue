@@ -5,6 +5,11 @@
 </template>
 
 <style>
+.md-app {
+  max-height: 400px;
+  border: 1px solid rgba(#000, 0.12);
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
