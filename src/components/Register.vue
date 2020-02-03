@@ -184,20 +184,14 @@ export default {
     formSubmit: function(e) {
       e.preventDefault();
       if (!this.validateForm()) return;
-      let user;
-      if (user == null || user == undefined) {
-        user = Storage.newUser(
-          this.form.email,
-          this.form.password,
-          this.remeberMe
-        );
-        Storage.saveUser(user);
-      } else {
-        if (user.password !== this.form.password) {
-          this.validation.password.isValid = false;
-          return;
-        }
-      }
+      let user = {
+        User_id: "",
+        Fullname: this.form.fullname,
+        Paypal_email: this.form.email,
+        Username: this.form.username,
+        Password: this.form.password,
+        IsSeller: this.form.isSeller
+      };
       this.$router.replace("/");
     },
     emailBlur: function() {
@@ -233,6 +227,8 @@ export default {
       if (this.form.email === "") return false;
       if (!this.validateEmail(this.form.email)) return false;
       if (this.form.password === "") return false;
+      if (this.form.username === "") return false;
+      if (this.form.fullname === "") return false;
       return true;
     }
   }

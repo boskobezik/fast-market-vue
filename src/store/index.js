@@ -13,8 +13,16 @@ export default new Vuex.Store({
       Password: ""
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    addUser(state, user) {
+      state.user = user;
+    }
+  },
+  actions: {
+    addUser(context, user) {
+      context.commit("addUser", user);
+    }
+  },
   modules: {},
   getters: {
     isLogged: state => {
