@@ -1,18 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import AddProduct from "../components/AddProduct.vue";
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
+import Main from "../components/Main.vue";
+import AddProduct from "../components/AddProduct.vue";
 
 Vue.use(VueMaterial);
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "/",
-    name: "home",
-    component: Home
+    name: "main",
+    component: Main
   },
   {
     path: "/addproduct",
