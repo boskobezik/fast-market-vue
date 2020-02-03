@@ -54,7 +54,7 @@ export default {
     }
   },
   mounted: function() {
-    if (!this.isLogged) this.$router.replace("/register");
+    if (!this.isLogged) this.$router.replace("/addProduct");
   }
 };
 </script>

@@ -5,7 +5,9 @@ import store from "./store";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
 import VueMaterial from "vue-material";
+const axios = require('axios').default;
 
+Vue.use(axios);
 Vue.use(VueMaterial);
 
 Vue.config.productionTip = false;
