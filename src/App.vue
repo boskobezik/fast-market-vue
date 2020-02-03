@@ -4,14 +4,15 @@
       rel="stylesheet"
       href="//fonts.googleapis.com/icon?family=Material+Icons"
     />
-    <md-app>
+    <router-view v-if="!isLogged" />
+    <md-app v-if="isLogged">
       <md-app-toolbar class="md-primary">
         <span class="md-title">My Title</span>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="full">
         <md-toolbar class="md-transparent" md-elevation="0">
-          Navigation
+          <h1><strong>Brza trgovina</strong></h1>
         </md-toolbar>
 
         <md-list>
@@ -43,6 +44,20 @@
     </md-app>
   </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+  computed: {
+    isLogged() {
+      return this.$store.getters.isLogged;
+    }
+  },
+  mounted: function() {
+    if (!this.isLogged) this.$router.replace("/register");
+  }
+};
+</script>
 
 <style>
 .md-app {
