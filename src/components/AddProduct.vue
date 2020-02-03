@@ -9,14 +9,9 @@
 </template>
 
 <script>
-
 export default {
-  name: "AddProduct",
-  
-  };
-
+  name: "AddProduct"
+};
 </script>
 
-<style scoped>
-  
-</style>
+<style scoped></style>

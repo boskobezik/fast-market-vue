@@ -40,6 +40,8 @@
           placeat dicta asperiores modi sint ea repudiandae maxime? Quae non
           explicabo, neque.
         </p>
+        <md-button class="md-accent">Accent</md-button>
+        <md-button disabled>Disabled</md-button>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error
           quibusdam, non molestias et! Earum magnam, similique, quo recusandae
@@ -87,6 +89,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "Normal"
+};
+</script>
+
 <style lang="scss" scoped>
 .md-app {
   max-height: 400px;
@@ -99,9 +107,3 @@
   max-width: calc(100vw - 125px);
 }
 </style>
-
-<script>
-export default {
-  name: "Normal"
-};
-</script>
