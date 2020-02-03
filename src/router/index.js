@@ -1,15 +1,21 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Main from "../components/Main.vue";
 import AddProduct from "../components/AddProduct.vue";
+import Register from "../components/Register.vue";
+import Login from "../components/Login.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "main",
-    component: Main
+    path: "/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
   },
   {
     path: "/addproduct",
