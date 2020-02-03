@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form novalidate class="md-layout" @submit.prevent="validateUser">
+    <form novalidate class="md-layout" @submit.prevent="validateForm">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
           <div class="md-title">Add Product</div>
@@ -79,7 +79,7 @@
     required,
     minLength,
     maxLength
-  } from 'vuelidate/lib/validators'
+  } from 'vuelidate/lib/validators';
 
   export default {
     name: 'AddProduct',
@@ -136,14 +136,15 @@
         this.form.quantity = null
         this.form.productImageUrl = null
       },
-      saveUser () {
-        this.sending = true
+      addProduct () {
+        this.sending = true;
+        
       },
-      validateUser () {
+      validateForm () {
         this.$v.$touch()
 
         if (!this.$v.$invalid) {
-          this.saveUser()
+          this.addProduct();
         }
       }
     },
