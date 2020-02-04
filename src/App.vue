@@ -1,10 +1,11 @@
 <template>
-  <div id="app" class="page-container">
+  <div id="app">
     <link
       rel="stylesheet"
       href="//fonts.googleapis.com/icon?family=Material+Icons"
     />
-    <md-app>
+    <router-view v-if="!isLogged" />
+    <md-app v-if="isLogged">
       <md-app-toolbar class="md-primary">
         <span class="md-title">My Title</span>
       </md-app-toolbar>
@@ -38,7 +39,9 @@
       </md-app-drawer>
 
       <md-app-content>
-        <router-view />
+        <div class="content">
+          <router-view />
+        </div>
       </md-app-content>
     </md-app>
   </div>
@@ -56,22 +59,24 @@ export default {
     }
   },
   mounted: function() {
-    if (!this.isLogged) this.$router.replace("/addProduct");
+    if (!this.isLogged) this.$router.replace("/login");
   }
 };
 </script>
 
 <style>
-.md-app {
+.md-app{
   border: 1px solid rgba(#000, 0.12);
 }
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.content {
+  min-height: 100% !important;
 }
 
 #nav {

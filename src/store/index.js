@@ -6,15 +6,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
-      User_id: 1,
+      User_id: -1,
       Full_name: "",
       Paypal_email: "",
       Username: "",
       Password: ""
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    addUser(state, user) {
+      state.user = user;
+    }
+  },
+  actions: {
+    addUser(context, user) {
+      context.commit("addUser", user);
+    }
+  },
   modules: {},
   getters: {
     isLogged: state => {

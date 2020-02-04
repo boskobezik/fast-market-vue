@@ -150,6 +150,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import * as Global from "../Global";
 export default {
   name: "Register",
   components: {},
@@ -184,21 +186,26 @@ export default {
     formSubmit: function(e) {
       e.preventDefault();
       if (!this.validateForm()) return;
-      let user;
-      if (user == null || user == undefined) {
-        user = Storage.newUser(
-          this.form.email,
-          this.form.password,
-          this.remeberMe
-        );
-        Storage.saveUser(user);
-      } else {
-        if (user.password !== this.form.password) {
-          this.validation.password.isValid = false;
-          return;
-        }
-      }
-      this.$router.replace("/");
+      let user = {
+        User_id: "",
+        Full_name: this.form.fullname,
+        Paypal_email: this.form.email,
+        Username: this.form.username,
+        Password: this.form.password,
+        IsSeller: this.form.isSeller
+      };
+
+      axios
+        .post(Global.apiurl, user)
+        .then(res => {
+          if (res.status === 200) {
+            this.$store.dispatch("addUser", user);
+            this.$router.replace("/");
+          }
+        })
+        .catch(error => {
+          alert("Došlo je do greške " + error.data.error.message);
+        });
     },
     emailBlur: function() {
       if (this.form.email === "") {
@@ -233,6 +240,8 @@ export default {
       if (this.form.email === "") return false;
       if (!this.validateEmail(this.form.email)) return false;
       if (this.form.password === "") return false;
+      if (this.form.username === "") return false;
+      if (this.form.fullname === "") return false;
       return true;
     }
   }
