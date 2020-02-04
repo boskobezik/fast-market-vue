@@ -1,152 +1,5 @@
 <template>
-  <div>
-    <md-content class="md-scrollbar">
-      <div class="md-layout md-gutter md-alignment-center login">
-        <div
-          class="md-layout-item md-xlarge-size-25 md-large-size-30 md-medium-size-33 md-small-size-50 md-xsmall-size-100"
-        >
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item center">
-              <img src="../assets/logo.png" alt="ToDo logo" class="logo" />
-            </div>
-          </div>
-          <form @submit="formSubmit">
-            <div class="md-layout md-gutter">
-              <div
-                class="md-layout-item md-medium-size-100 md-small-size-100 md-xsmall-size-100"
-              >
-                <md-field
-                  :class="{
-                    'md-invalid':
-                      validation.fullname.isEmpty === true ||
-                      validation.fullname.isEmail === false
-                  }"
-                >
-                  <label>Ime i prezime</label>
-                  <md-input
-                    v-model="form.fullname"
-                    @blur="fullnameBlur"
-                  ></md-input>
-                  <span
-                    class="md-error"
-                    v-if="validation.fullname.isEmpty === true"
-                    >Ime i prezime je obavezno</span
-                  >
-                </md-field>
-              </div>
-              <div
-                class="md-layout-item md-medium-size-100 md-small-size-100 md-xsmall-size-100"
-              >
-                <md-field
-                  :class="{
-                    'md-invalid':
-                      validation.email.isEmpty === true ||
-                      validation.email.isEmail === false
-                  }"
-                >
-                  <label>Paypal email</label>
-                  <md-input v-model="form.email" @blur="emailBlur"></md-input>
-                  <span
-                    class="md-error"
-                    v-if="validation.email.isEmpty === true"
-                    >Email je obavezan</span
-                  >
-                  <span
-                    class="md-error"
-                    v-if="validation.email.isEmail === false"
-                    >Email nije validan</span
-                  >
-                </md-field>
-              </div>
-
-              <div
-                class="md-layout-item md-medium-size-100 md-small-size-100 md-xsmall-size-100"
-              >
-                <md-field
-                  :class="{
-                    'md-invalid':
-                      validation.email.isEmpty === true ||
-                      validation.email.isEmail === false
-                  }"
-                >
-                  <label>Korisničko ime</label>
-                  <md-input
-                    v-model="form.username"
-                    @blur="usernameBlur"
-                  ></md-input>
-                  <span
-                    class="md-error"
-                    v-if="validation.username.isEmpty === true"
-                    >Korisničko ime je obavezno</span
-                  >
-                </md-field>
-              </div>
-            </div>
-            <div class="md-layout md-gutter">
-              <div
-                class="md-layout-item md-medium-size-100 md-small-size-100 md-xsmall-size-100"
-              >
-                <md-field
-                  :class="{
-                    'md-invalid':
-                      validation.password.isEmpty === true ||
-                      validation.password.isValid === false
-                  }"
-                >
-                  <label>Lozinka</label>
-                  <md-input
-                    @blur="passwordBlur"
-                    v-model="form.password"
-                    type="password"
-                  ></md-input>
-                  <span
-                    class="md-error"
-                    v-if="validation.password.isEmpty === true"
-                    >Lozinka je obavezna</span
-                  >
-                  <span
-                    class="md-error"
-                    v-if="validation.password.isValid === false"
-                    >Lozinka nije validna</span
-                  >
-                </md-field>
-              </div>
-            </div>
-            <div class="md-layout md-gutter">
-              <div
-                class="md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-50"
-              >
-                <md-checkbox class="md-primary" v-model="form.isSeller"
-                  >Prodavač</md-checkbox
-                >
-              </div>
-            </div>
-            <div class="md-layout md-gutter">
-              <div
-                class="md-layout-item md-medium-size-100 md-small-size-100 md-xsmall-size-100"
-              >
-                <md-button
-                  type="submit"
-                  class="md-raised md-primary signIn"
-                  :disabled="
-                    !(
-                      validation.email.isEmpty === false &&
-                      validation.email.isEmail === true &&
-                      validation.password.isEmpty === false
-                    )
-                  "
-                  >Registruj se</md-button
-                >
-                <md-button type="submit" class="md-raised signIn" to="/login"
-                  >Prijavi se</md-button
-                >
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </md-content>
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -199,12 +52,13 @@ export default {
         .post(Global.apiurl, user)
         .then(res => {
           if (res.status === 200) {
+            user.User_id = res.data.User_id;
             this.$store.dispatch("addUser", user);
             this.$router.replace("/");
           }
         })
         .catch(error => {
-          alert("Došlo je do greške " + error.data.error.message);
+          console.log(error);
         });
     },
     emailBlur: function() {
