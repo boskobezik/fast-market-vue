@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div></div>
 </template>
@@ -66,9 +65,8 @@ export default {
     addProduct() {
       this.sending = true;
       axios
-        .get("https://jsonplaceholder.typicode.com/todos/1")
-        .then(res => console.log(res))
-        .catch(ex => console.error(ex));
+        .get("http://jsonplaceholder.typicode.com/posts")
+        .then(res => console.log(res));
     },
     validateForm() {
       this.$v.$touch();

@@ -52,6 +52,9 @@
 <script>
 export default {
   name: "App",
+  data: () => ({
+    menuVisible: false
+  }),
   computed: {
     isLogged() {
       return this.$store.getters.isLogged;
@@ -64,6 +67,10 @@ export default {
 </script>
 
 <style>
+.md-app{
+  border: 1px solid rgba(#000, 0.12);
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   text-align: center;
