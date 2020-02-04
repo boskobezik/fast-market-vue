@@ -1,21 +1,21 @@
 <template>
   <div id="app" class="page-container">
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
-    <router-view v-if="!isLogged" />
-    <md-app v-if="isLogged">
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <md-app>
       <md-app-toolbar class="md-primary">
         <span class="md-title">My Title</span>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="full">
         <md-toolbar class="md-transparent" md-elevation="0">
-          <h1>
-            <strong>Brza trgovina</strong>
-          </h1>
+          Navigation
         </md-toolbar>
 
         <md-list>
-          <md-list-item to="/addProduct">
+          <md-list-item>
             <md-icon>move_to_inbox</md-icon>
             <span class="md-list-item-text">Inbox</span>
           </md-list-item>
@@ -47,6 +47,9 @@
 <script>
 export default {
   name: "App",
+  data: () => ({
+    menuVisible: false
+  }),
   computed: {
     isLogged() {
       return this.$store.getters.isLogged;
@@ -60,7 +63,6 @@ export default {
 
 <style>
 .md-app {
-  max-height: 400px;
   border: 1px solid rgba(#000, 0.12);
 }
 
