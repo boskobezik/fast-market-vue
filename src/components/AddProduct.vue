@@ -193,13 +193,10 @@ export default {
     },
     addProduct() {
       this.sending = true;
-<<<<<<< HEAD
-=======
       axios
         .get("https://jsonplaceholder.typicode.com/todos/1")
         .then(res => console.log(res))
         .catch(ex => console.error(ex));
->>>>>>> 208c2f38c7d056b8111158b15840f6c98a3a82bf
     },
     validateForm() {
       this.$v.$touch();
