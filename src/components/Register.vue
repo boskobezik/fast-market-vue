@@ -150,6 +150,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import * as Global from "../Global";
 export default {
   name: "Register",
   components: {},
@@ -186,13 +188,24 @@ export default {
       if (!this.validateForm()) return;
       let user = {
         User_id: "",
-        Fullname: this.form.fullname,
+        Full_name: this.form.fullname,
         Paypal_email: this.form.email,
         Username: this.form.username,
         Password: this.form.password,
         IsSeller: this.form.isSeller
       };
-      this.$router.replace("/");
+
+      axios
+        .post(Global.apiurl, user)
+        .then(res => {
+          if (res.status === 200) {
+            this.$store.dispatch("addUser", user);
+            this.$router.replace("/");
+          }
+        })
+        .catch(error => {
+          alert("Došlo je do greške " + error.data.error.message);
+        });
     },
     emailBlur: function() {
       if (this.form.email === "") {
