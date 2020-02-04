@@ -1,9 +1,6 @@
 <template>
   <div id="app" class="page-container">
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/icon?family=Material+Icons"
-    />
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
     <router-view v-if="!isLogged" />
     <md-app v-if="isLogged">
       <md-app-toolbar class="md-primary">
@@ -12,7 +9,9 @@
 
       <md-app-drawer md-permanent="full">
         <md-toolbar class="md-transparent" md-elevation="0">
-          <h1><strong>Brza trgovina</strong></h1>
+          <h1>
+            <strong>Brza trgovina</strong>
+          </h1>
         </md-toolbar>
 
         <md-list>
