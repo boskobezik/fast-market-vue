@@ -1,5 +1,75 @@
 <template>
-  <div></div>
+  <div class="register">
+    <div class="center">
+      <img src="../assets/logo.png" alt="ToDo logo" class="logo" />
+    </div>
+    <b-container>
+      <b-row class="row-centered">
+        <b-col sm="12" lg="4" xl="4" md="6">
+          <b-form @submit="formSubmit">
+            <b-alert variant="danger" show v-if="registerFailed"
+              >Podaci za prijavu nisu ispravni</b-alert
+            >
+            <b-form-group label="Ime i prezime" label-for="fullname">
+              <b-form-input
+                id="fullname"
+                v-model="form.fullname"
+                required
+                title="Fullname must be at least 3 characters long"
+                pattern=".{3,}"
+                placeholder="Nomen Nescio"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group label="Paypal email" label-for="ppemail">
+              <b-form-input
+                id="ppemail"
+                v-model="form.email"
+                required
+                type="email"
+                title="Email format is not valid"
+                placeholder="nomen.nescion@email.com"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group label="Korisničko ime" label-for="username">
+              <b-form-input
+                id="username"
+                v-model="form.username"
+                required
+                title="Username must be at least 3 characters long"
+                pattern=".{3,}"
+                placeholder="korisnik"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group label="Lozinka" label-for="password">
+              <b-form-input
+                id="password"
+                v-model="form.password"
+                required
+                title="Password must be at least 6 characters long"
+                pattern=".{6,}"
+                type="password"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group>
+              <b-form-checkbox
+                id="isSeller"
+                v-model="form.isSeller"
+                name="isSeller"
+              >
+                Prodavač
+              </b-form-checkbox>
+            </b-form-group>
+            <b-form-group>
+              <b-button type="submit" variant="primary">Registruj se</b-button>
+            </b-form-group>
+            <b-form-group>
+              <b-button variant="info" :to="'/login'">Prijavi se</b-button>
+            </b-form-group>
+          </b-form>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -10,35 +80,19 @@ export default {
   components: {},
   data() {
     return {
+      registerFailed: null,
       form: {
         fullname: "",
         email: "",
         username: "",
         password: "",
         isSeller: false
-      },
-      validation: {
-        fullname: {
-          isEmpty: null
-        },
-        username: {
-          isEmpty: null
-        },
-        email: {
-          isEmpty: null,
-          isEmail: null
-        },
-        password: {
-          isEmpty: null,
-          isValid: null
-        }
       }
     };
   },
   methods: {
     formSubmit: function(e) {
       e.preventDefault();
-      if (!this.validateForm()) return;
       let user = {
         User_id: "",
         Full_name: this.form.fullname,
@@ -49,61 +103,28 @@ export default {
       };
 
       axios
-        .post(Global.apiurl, user)
+        .post(Global.apiurl + "users/register", user)
         .then(res => {
           if (res.status === 200) {
-            user.User_id = res.data.User_id;
-            this.$store.dispatch("addUser", user);
-            this.$router.replace("/");
+            this.$router.replace("/login");
+          } else {
+            this.registerFailed = true;
           }
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    emailBlur: function() {
-      if (this.form.email === "") {
-        this.validation.email.isEmpty = true;
-        return;
-      } else this.validation.email.isEmpty = false;
-      if (!this.validateEmail(this.form.email)) {
-        this.validation.email.isEmail = false;
-        return;
-      } else this.validation.email.isEmail = true;
-    },
-    passwordBlur: function() {
-      if (this.form.password === "") {
-        this.validation.password.isEmpty = true;
-      } else this.validation.password.isEmpty = false;
-    },
-    fullnameBlur: function() {
-      if (this.form.fullname === "") {
-        this.validation.fullname.isEmpty = true;
-      } else this.validation.fullname.isEmpty = false;
-    },
-    usernameBlur: function() {
-      if (this.form.username === "") {
-        this.validation.username.isEmpty = true;
-      } else this.validation.username.isEmpty = false;
-    },
-    validateEmail: function(email) {
-      var re = /\S+@\S+\.\S+/;
-      return re.test(String(email).toLowerCase());
-    },
-    validateForm: function() {
-      if (this.form.email === "") return false;
-      if (!this.validateEmail(this.form.email)) return false;
-      if (this.form.password === "") return false;
-      if (this.form.username === "") return false;
-      if (this.form.fullname === "") return false;
-      return true;
     }
   }
 };
 </script>
 
 <style scoped>
-.login {
+.row-centered {
+  display: flex;
+  justify-content: center;
+}
+.register {
   padding: 0% 5%;
   width: 100%;
   position: absolute;
