@@ -3,9 +3,7 @@
     <div v-if="!isLogged">
       <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-brand href="#">FastStore</b-navbar-brand>
-
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <b-nav-item to="addproduct">Add Product</b-nav-item>
@@ -23,15 +21,25 @@
 export default {
   name: "App",
   data: () => ({
-    menuVisible: false
+    menuVisible: false,
+    isLogged: false
   }),
-  computed: {
-    isLogged() {
-      return this.$store.getters.isLogged;
+  mounted: function() {
+    let authToken = this.$cookies.get("authtoken");
+    console.log(authToken);
+    if (authToken !== null) {
+      this.isLogged = true;
+    } else {
+      this.isLogged == false;
+      if (this.$router.currentRoute.path !== "/login")
+        this.$router.replace("/login");
     }
   },
-  mounted: function() {
-    // if (!this.isLogged) this.$router.replace("/login");
+  methods: {
+    signOut: function() {
+      this.$cookies.remove("authtoken");
+      window.location.reload();
+    }
   }
 };
 </script>

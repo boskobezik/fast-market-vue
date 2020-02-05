@@ -16,11 +16,17 @@ export default new Vuex.Store({
   mutations: {
     addUser(state, user) {
       state.user = user;
+    },
+    deleteUser(state) {
+      state.user = null;
     }
   },
   actions: {
     addUser(context, user) {
       context.commit("addUser", user);
+    },
+    deleteUser(context) {
+      context.commit("deleteUser");
     }
   },
   modules: {},
