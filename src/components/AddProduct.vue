@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" @reset="onReset">
       <!-- PRODUCT_NAME -->
       <b-form-group
         id="product_name_group"
@@ -26,6 +26,20 @@
           v-model="form.product_owner_id"
           required
           placeholder="Enter owner ID"
+        ></b-form-input>
+      </b-form-group>
+
+      <!-- PRODUCT_PRICE -->
+      <b-form-group
+        id="product_price_group"
+        label="Product price:"
+        label-for="product_price"
+      >
+        <b-form-input
+          id="product_price"
+          v-model="form.product_price"
+          required
+          placeholder="Enter price"
         ></b-form-input>
       </b-form-group>
 
@@ -69,18 +83,22 @@ export default {
         product_owner_id: "",
         product_url: "https://picsum.photos/300/150",
         product_price: ""
-      },
-      show: true
+      }
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
+      let payload = {
+        Product_id: 0,
+        User_Owner_id: 25,
+        Product_name: this.form.product_name,
+        Price: this.form.product_price,
+        Picture_url: this.form.product_url
+      };
+      console.warn("SENDING PAYLOAD", payload);
       axios
-        .post("http://127.0.0.1:8081/products/add", {
-          Product_id: this.form.product_id,
-          Order_id: 0
-        })
+        .post("http://127.0.0.1:8081/products/add", payload)
         .then(res => console.log(res))
         .catch(err => console.error(err));
     },
