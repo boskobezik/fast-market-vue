@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import AddProduct from "../components/AddProduct.vue";
-import Register from "../components/Register.vue";
-import Login from "../components/Login.vue";
-import AddOrder from "../components/AddOrder.vue";
+import AddProduct from "../views/AddProduct.vue";
+import Register from "../views/Register.vue";
+import Login from "../views/Login.vue";
+import AddOrder from "../views/AddOrder.vue";
 
 Vue.use(VueRouter);
 
