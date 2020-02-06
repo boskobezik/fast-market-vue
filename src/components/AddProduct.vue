@@ -74,6 +74,10 @@
 <script>
 import axios from "axios";
 
+axios.defaults.headers.common["Authorization"] =
+  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6byIsImV4cCI6MTU4MDk5MjY1NCwiaWF0IjoxNTgwOTc0NjU0fQ.PQMGj_Aa9NdDxpEX40td-J3FvlYK2v0HLjJ1BEsdSYK6i30pMUhZWMvfMyppG6_ktSSxHijMsSkvJ88yCM-p4Q";
+axios.defaults.headers.common["Content-Type"] = "application/json";
+
 export default {
   data() {
     return {
@@ -98,7 +102,7 @@ export default {
       };
       console.warn("SENDING PAYLOAD", payload);
       axios
-        .post("http://127.0.0.1:8081/products/add", payload)
+        .post("http://192.168.1.35:8080/products/add", payload)
         .then(res => console.log(res))
         .catch(err => console.error(err));
     },

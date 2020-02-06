@@ -53,11 +53,15 @@
 <script>
 import axios from "axios";
 
+axios.defaults.headers.common["Authorization"] =
+  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6byIsImV4cCI6MTU4MDk5MjY1NCwiaWF0IjoxNTgwOTc0NjU0fQ.PQMGj_Aa9NdDxpEX40td-J3FvlYK2v0HLjJ1BEsdSYK6i30pMUhZWMvfMyppG6_ktSSxHijMsSkvJ88yCM-p4Q";
+axios.defaults.headers.common["Content-Type"] = "application/json";
+
 export default {
   mounted() {
     // GET SOME PRODUCTS FROM DATABASE
     axios
-      .get("http://127.0.0.1:8081/products")
+      .get("http://192.168.1.35:8080/products")
       .then(res => {
         this.form.products = res.data;
         this.form.productNames = this.form.products.map(p => p.Product_name);
@@ -86,28 +90,27 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       const payload = {
-        order: {
+        Order: {
           Order_id: this.form.order_id,
           User_id: this.form.user_id
         },
-        productViewModel: [
+        ProductViewModel: [
           {
-            product: {
+            Product: {
               Product_id: this.form.selectedProduct.Product_id,
               Product_name: this.form.selectedProduct.Product_name,
               Picture_url: this.form.selectedProduct.Picture_url,
               Price: this.form.selectedProduct.Price,
               User_Owner_id: this.form.selectedProduct.User_Owner_id
             },
-            quantity: this.form.product_quantity
+            Quantity: this.form.product_quantity
           }
         ]
       };
 
       console.warn(payload);
-
       axios
-        .post("http://127.0.0.1:8081/orders/add", payload)
+        .post("http://192.168.1.35:8080/api/orders/add", payload)
         .then(res => console.log(res))
         .catch(err => console.log(err, "Response: ", err.response));
     },

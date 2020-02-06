@@ -11,14 +11,27 @@ export default new Vuex.Store({
       Paypal_email: "",
       Username: "",
       Password: ""
-    }
+    },
+    cart: []
   },
   mutations: {
+    // USERS
     addUser(state, user) {
       state.user = user;
     },
     deleteUser(state) {
       state.user = null;
+    },
+
+    // PRODUCTS
+    addProductToCart(state, product) {
+      state.cart.push(product);
+    },
+    deleteProductFromCart(state, product) {
+      state.cart.filter(p => p !== product);
+    },
+    clearCart(state) {
+      state.cart = [];
     }
   },
   actions: {

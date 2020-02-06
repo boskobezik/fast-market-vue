@@ -42,6 +42,7 @@
 <script>
 import axios from "axios";
 import * as Global from "../Global";
+
 export default {
   name: "Login",
   components: {},
@@ -72,7 +73,7 @@ export default {
         IsSeller: false
       };
       axios
-        .post(Global.apiurl + "users/login", user)
+        .post(Global.apiurl + "authenticate", user)
         .then(res => {
           if (res.status === 200) {
             this.$cookies.set("authtoken", res.data.User_id);
