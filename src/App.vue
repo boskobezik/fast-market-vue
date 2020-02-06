@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import httpService from "./services/httpService";
 import * as Global from "./Global";
 import NavBar from "./components/NavBar";
 
@@ -25,11 +25,9 @@ export default {
   mounted: function() {
     let authToken = this.$cookies.get("authtoken");
     if (authToken !== null) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$cookies.get("authtoken");
-      axios.defaults.headers.common["Content-Type"] = "application/json";
+      httpService.setJwt(authToken);
 
-      axios
+      httpService
         .get(
           Global.apiurl +
             "api/users/getUserByUsername/" +
