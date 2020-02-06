@@ -123,6 +123,7 @@ export default {
 .row-centered {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 .register {
   padding: 0% 5%;
