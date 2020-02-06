@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row row-centered mt-5">
     <b-form @submit="onSubmit" @reset="onReset">
       <!-- PRODUCT_NAME -->
       <b-form-group
@@ -72,11 +72,8 @@
 </template>
 
 <script>
-import axios from "axios";
-
-axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6byIsImV4cCI6MTU4MDk5MjY1NCwiaWF0IjoxNTgwOTc0NjU0fQ.PQMGj_Aa9NdDxpEX40td-J3FvlYK2v0HLjJ1BEsdSYK6i30pMUhZWMvfMyppG6_ktSSxHijMsSkvJ88yCM-p4Q";
-axios.defaults.headers.common["Content-Type"] = "application/json";
+import httpService from "../services/httpService";
+import * as Global from "../Global";
 
 export default {
   data() {
@@ -101,8 +98,8 @@ export default {
         Picture_url: this.form.product_url
       };
       console.warn("SENDING PAYLOAD", payload);
-      axios
-        .post("http://192.168.1.35:8080/products/add", payload)
+      httpService
+        .post(`${Global.apiurl}products/add`, payload)
         .then(res => console.log(res))
         .catch(err => console.error(err));
     },

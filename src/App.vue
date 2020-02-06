@@ -22,14 +22,15 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-      <router-view class="router-app" />
+      <router-view class="col-12" />
     </div>
     <router-view v-if="!isLogged" />
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import httpService from "./services/httpService";
+import cookieService from "./services/cookieService";
 import * as Global from "./Global";
 export default {
   name: "App",
@@ -45,11 +46,9 @@ export default {
   mounted: function() {
     let authToken = this.$cookies.get("authtoken");
     if (authToken !== null) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$cookies.get("authtoken");
-      axios.defaults.headers.common["Content-Type"] = "application/json";
+      httpService.setJwt(cookieService.getCookie("authtoken"));
 
-      axios
+      httpService
         .get(
           Global.apiurl +
             "api/users/getUserByUsername/" +
@@ -79,12 +78,9 @@ export default {
 </script>
 
 <style>
-.router-app {
-  padding: 25px 25%;
-}
-
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;
 }
+
 </style>

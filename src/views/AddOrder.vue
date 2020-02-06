@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row row-centered mt-5">
     <b-form @submit="onSubmit" @reset="onReset">
       <!-- Product selection with button to add to list -->
       <!-- https://bootstrap-vue.js.org/docs/components/form-input#datalist-support -->
@@ -25,7 +25,6 @@
           >
         </datalist>
       </b-form-group>
-      <h3>{{ form.selectedProduct }}</h3>
 
       <!-- QUANTITY -->
       <b-form-group
@@ -42,26 +41,42 @@
       </b-form-group>
 
       <!-- SUBMIT FORM -->
-      <b-button type="submit" variant="primary" style="margin-right:5px;"
-        >Submit</b-button
+      <b-button
+        variant="primary"
+        style="margin-right:5px;"
+        v-on:click="onAddToCart"
+        >Add to cart</b-button
       >
       <b-button type="reset" variant="danger">Reset</b-button>
+
+      <b-table
+        class="mt-5"
+        striped
+        hover
+        :items="this.$store.state.cart"
+        :fields="[
+          'Product_id',
+          'Product_name',
+          'Picture_url',
+          'Price',
+          'User_Owner_id',
+          'Quantity'
+        ]"
+      >
+      </b-table>
     </b-form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
-axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6byIsImV4cCI6MTU4MDk5MjY1NCwiaWF0IjoxNTgwOTc0NjU0fQ.PQMGj_Aa9NdDxpEX40td-J3FvlYK2v0HLjJ1BEsdSYK6i30pMUhZWMvfMyppG6_ktSSxHijMsSkvJ88yCM-p4Q";
-axios.defaults.headers.common["Content-Type"] = "application/json";
+import httpService from "../services/httpService";
+import * as Global from "../Global";
 
 export default {
   mounted() {
     // GET SOME PRODUCTS FROM DATABASE
-    axios
-      .get("http://192.168.1.35:8080/products")
+    httpService
+      .get(`${Global.apiurl}products/get`)
       .then(res => {
         this.form.products = res.data;
         this.form.productNames = this.form.products.map(p => p.Product_name);
@@ -82,6 +97,10 @@ export default {
     };
   },
   methods: {
+    onAddToCart() {
+      this.$store.commit("addProductToCart", this.selectedProduct);
+      console.log("CART: ", this.$store.state.cart);
+    },
     productSelected(arg) {
       this.form.selectedProduct = this.form.products.find(
         p => p.Product_name === arg
@@ -109,8 +128,8 @@ export default {
       };
 
       console.warn(payload);
-      axios
-        .post("http://192.168.1.35:8080/api/orders/add", payload)
+      httpService
+        .post(`${Global.apiurl}api/orders/add`, payload)
         .then(res => console.log(res))
         .catch(err => console.log(err, "Response: ", err.response));
     },
@@ -127,4 +146,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.row-centered {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+</style>

@@ -12,7 +12,15 @@ export default new Vuex.Store({
       Username: "",
       Password: ""
     },
-    cart: []
+    cart: [
+      {
+        Product_id: 2,
+        Product_name: "test",
+        Picture_url: "testURL",
+        Price: 54,
+        User_Owner_id: 24
+      }
+    ]
   },
   mutations: {
     // USERS
