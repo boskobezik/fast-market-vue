@@ -32,6 +32,7 @@
 import httpService from "./services/httpService";
 import cookieService from "./services/cookieService";
 import * as Global from "./Global";
+
 export default {
   name: "App",
   data: () => ({
@@ -82,5 +83,4 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;
 }
-
 </style>

@@ -23,7 +23,7 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    // USERS
+    /* USERS */
     addUser(state, user) {
       state.user = user;
     },
@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state.user = null;
     },
 
-    // PRODUCTS
+    /* PRODUCTS */
     addProductToCart(state, product) {
       state.cart.push(product);
     },
