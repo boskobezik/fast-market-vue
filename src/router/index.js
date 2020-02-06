@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import AddProduct from "../components/AddProduct.vue";
 import Register from "../components/Register.vue";
 import Login from "../components/Login.vue";
+import AddOrder from "../components/AddOrder.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/addproduct",
     name: "addproduct",
     component: AddProduct
+  },
+  {
+    path: "/addorder",
+    name: "addorder",
+    component: AddOrder
   }
 ];
 
