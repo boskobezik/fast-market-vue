@@ -7,9 +7,9 @@
       <b-row class="row-centered">
         <b-col sm="12" lg="4" xl="4" md="6">
           <b-form @submit="formSubmit">
-            <b-alert variant="danger" show v-if="registerFailed"
-              >Podaci za prijavu nisu ispravni</b-alert
-            >
+            <b-alert variant="danger" show v-if="registerFailedMessage">{{
+              registerFailedMessage
+            }}</b-alert>
             <b-form-group label="Ime i prezime" label-for="fullname">
               <b-form-input
                 id="fullname"
@@ -73,14 +73,14 @@
 </template>
 
 <script>
-import axios from "axios";
+import httpService from "../services/httpService";
 import * as Global from "../Global";
 export default {
   name: "Register",
   components: {},
   data() {
     return {
-      registerFailed: null,
+      registerFailedMessage: null,
       form: {
         fullname: "",
         email: "",
@@ -102,17 +102,21 @@ export default {
         IsSeller: this.form.isSeller
       };
 
-      axios
-        .post(Global.apiurl + "users/register", user)
+      httpService.setJwt("");
+
+      httpService
+        .post(Global.apiurl + "api/users/register", user)
         .then(res => {
           if (res.status === 200) {
             this.$router.replace("/login");
           } else {
-            this.registerFailed = true;
+            this.registerFailedMessage =
+              "Došlo je do greške. Molimo pokušajte kasnije";
           }
         })
-        .catch(error => {
-          console.log(error);
+        .catch(() => {
+          this.registerFailedMessage =
+            "Došlo je do greške. Molimo pokušajte kasnije";
         });
     }
   }

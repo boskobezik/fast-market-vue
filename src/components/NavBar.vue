@@ -35,6 +35,7 @@ export default {
   methods: {
     signOut: function() {
       this.$cookies.remove("authtoken");
+      this.$cookies.remove("username");
       window.location.reload();
     },
     profile: function() {

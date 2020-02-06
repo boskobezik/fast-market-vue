@@ -5,6 +5,7 @@ import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
 import AddOrder from "../views/AddOrder.vue";
 import Profile from "../views/Profile.vue";
+import cookieService from "../services/cookieService";
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,13 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: "history"
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login" || to.path === "/register") {
+    if (cookieService.checkCookie("authtoken")) next(from.path);
+  }
+  next();
 });
 
 export default router;
