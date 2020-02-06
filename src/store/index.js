@@ -33,6 +33,9 @@ export default new Vuex.Store({
   getters: {
     isLogged: state => {
       return state.user.User_id !== -1;
+    },
+    loggedUser: state => {
+      return state.user;
     }
   }
 });

@@ -52,8 +52,7 @@ export default {
         username: "",
         password: "",
         rememberMe: false
-      },
-      testData: []
+      }
     };
   },
   methods: {
@@ -64,19 +63,21 @@ export default {
 
       if (!this.validateForm()) return;
       let user = {
-        User_id: "",
-        Full_name: "",
-        Paypal_email: "",
-        Username: this.form.username,
-        Password: this.form.password,
-        IsSeller: false
+        username: this.form.username,
+        password: this.form.password
       };
       axios
-        .post(Global.apiurl + "users/login", user)
+        .post(Global.apiurl + "authenticate", user)
         .then(res => {
           if (res.status === 200) {
-            this.$cookies.set("authtoken", res.data.User_id);
-            this.$store.dispatch("addUser", res.data);
+            if (res.data.token === "") {
+              this.loginFailedMessage =
+                "Došlo je do greške. Molimo pokušajte kasnije";
+              return;
+            }
+
+            this.$cookies.set("authtoken", res.data.token);
+            this.$cookies.set("username", this.form.username);
             window.location = "/";
           }
         })
@@ -109,6 +110,7 @@ export default {
   top: 40%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  text-align: center;
 }
 .logo {
   margin-bottom: 4em;
