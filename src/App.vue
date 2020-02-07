@@ -1,28 +1,8 @@
 <template>
   <div id="app">
     <div v-if="isLogged">
-      <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="/">FastStore</b-navbar-brand>
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <b-nav-item to="addproduct">Add Product</b-nav-item>
-            <b-nav-item to="addorder">Add Order</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown right>
-              <template v-slot:button-content>
-                <strong>{{ loggedUser.Full_name }}</strong>
-              </template>
-              <b-dropdown-item-button href="#">Profile</b-dropdown-item-button>
-              <b-dropdown-item-button v-on:click="signOut"
-                >Sign Out</b-dropdown-item-button
-              ></b-nav-item-dropdown
-            >
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
-      <router-view class="col-12" />
+      <NavBar />
+      <router-view class="router-app" />
     </div>
     <router-view v-if="!isLogged" />
   </div>
@@ -30,8 +10,8 @@
 
 <script>
 import httpService from "./services/httpService";
-import cookieService from "./services/cookieService";
 import * as Global from "./Global";
+import NavBar from "./components/NavBar";
 
 export default {
   name: "App",
@@ -39,15 +19,13 @@ export default {
     menuVisible: false,
     isLogged: false
   }),
-  computed: {
-    loggedUser: function() {
-      return this.$store.getters.loggedUser;
-    }
+  components: {
+    NavBar
   },
   mounted: function() {
     let authToken = this.$cookies.get("authtoken");
     if (authToken !== null) {
-      httpService.setJwt(cookieService.getCookie("authtoken"));
+      httpService.setJwt(authToken);
 
       httpService
         .get(
@@ -68,12 +46,6 @@ export default {
       if (this.$router.currentRoute.path !== "/login")
         this.$router.replace("/login");
     }
-  },
-  methods: {
-    signOut: function() {
-      this.$cookies.remove("authtoken");
-      window.location.reload();
-    }
   }
 };
 </script>
@@ -82,5 +54,24 @@ export default {
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;
+}
+
+.row-centered {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.logo {
+  margin-bottom: 4em;
+  text-align: center;
+}
+
+.align-vertically {
+  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
 }
 </style>

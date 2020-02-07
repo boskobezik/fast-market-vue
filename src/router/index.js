@@ -4,6 +4,7 @@ import AddProduct from "../views/AddProduct.vue";
 import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
 import AddOrder from "../views/AddOrder.vue";
+import Profile from "../views/Profile.vue";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile
   },
   {
     path: "/addproduct",

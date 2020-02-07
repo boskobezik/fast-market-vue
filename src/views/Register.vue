@@ -1,9 +1,9 @@
 <template>
-  <div class="register">
-    <div class="center">
-      <img src="../assets/logo.png" alt="ToDo logo" class="logo" />
-    </div>
+  <div class="align-vertically">
     <b-container>
+      <div class="center">
+        <img src="../assets/logo.png" alt="ToDo logo" class="logo" />
+      </div>
       <b-row class="row-centered">
         <b-col sm="12" lg="4" xl="4" md="6">
           <b-form @submit="formSubmit">
@@ -119,41 +119,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.row-centered {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
-.register {
-  padding: 0% 5%;
-  width: 100%;
-  position: absolute;
-  top: 40%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-.logo {
-  margin-bottom: 4em;
-  text-align: center;
-}
-.center {
-  text-align: center;
-}
-.right {
-  text-align: right;
-}
-.md-checkbox {
-  margin: 0 !important;
-}
-.signIn {
-  width: 100%;
-  margin: 0em !important;
-  margin-top: 2em !important;
-}
-.input {
-  border: 2px solid #e0e0e0 !important;
-  border-radius: 5px;
-  margin: 5px;
-}
-</style>
+<style scoped></style>
