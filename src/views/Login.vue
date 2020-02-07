@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import httpService from "../services/httpService";
 import * as Global from "../Global";
 
 export default {
@@ -67,7 +67,7 @@ export default {
         username: this.form.username,
         password: this.form.password
       };
-      axios
+      httpService
         .post(Global.apiurl + "authenticate", user)
         .then(res => {
           if (res.status === 200) {
